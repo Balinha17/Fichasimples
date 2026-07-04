@@ -978,6 +978,165 @@ st.markdown("""
         color-scheme: light !important;
     }
 
+
+
+    .student-consult-shell {
+        background: #ffffff;
+        border: 1px solid #e3ebf5;
+        border-radius: 22px;
+        box-shadow: 0 14px 34px rgba(15, 23, 42, .07);
+        padding: 28px;
+        margin-top: 18px;
+    }
+
+    .student-info-strip {
+        background: linear-gradient(90deg, #eef6ff, #f7fbff);
+        border: 1px solid #d6e8ff;
+        border-radius: 12px;
+        padding: 16px 18px;
+        color: #26364d;
+        font-weight: 800;
+        margin: 22px 0 34px 0;
+    }
+
+    .student-steps {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 0;
+        position: relative;
+        margin: 20px 28px 34px 28px;
+    }
+
+    .student-steps:before {
+        content: "";
+        position: absolute;
+        left: 12%;
+        right: 12%;
+        top: 38px;
+        height: 3px;
+        background: #d7e1ee;
+        z-index: 1;
+    }
+
+    .student-steps:after {
+        content: "";
+        position: absolute;
+        left: 12%;
+        width: 31%;
+        top: 38px;
+        height: 3px;
+        background: #145fe3;
+        z-index: 2;
+    }
+
+    .student-step {
+        position: relative;
+        z-index: 3;
+        text-align: center;
+        min-height: 150px;
+    }
+
+    .student-step-circle {
+        width: 66px;
+        height: 66px;
+        border-radius: 999px;
+        margin: 0 auto 14px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 31px;
+        font-weight: 900;
+        border: 2px solid #d7e1ee;
+        background: #ffffff;
+        color: #64748b;
+        box-shadow: 0 9px 22px rgba(15,23,42,.08);
+    }
+
+    .student-step.active .student-step-circle,
+    .student-step.done .student-step-circle {
+        background: linear-gradient(135deg, #2777ff, #145fe3);
+        border-color: #145fe3;
+        color: white;
+        box-shadow: 0 14px 28px rgba(20,95,227,.22);
+    }
+
+    .student-step-title {
+        font-weight: 900;
+        color: #111827;
+        margin-bottom: 6px;
+    }
+
+    .student-step.done .student-step-title,
+    .student-step.active .student-step-title {
+        color: #145fe3;
+    }
+
+    .student-step-desc {
+        color: #5b677a;
+        font-weight: 600;
+        line-height: 1.35;
+    }
+
+    .student-chip {
+        display: inline-flex;
+        margin-top: 8px;
+        padding: 5px 12px;
+        border-radius: 999px;
+        background: #e8f1ff;
+        color: #145fe3;
+        font-weight: 900;
+        font-size: 12px;
+    }
+
+    .explain-card {
+        background: white;
+        border: 1px solid #dfe8f2;
+        border-radius: 16px;
+        box-shadow: var(--soft-shadow);
+        padding: 22px;
+        margin-top: 18px;
+    }
+
+    .explain-title {
+        font-size: 18px;
+        font-weight: 900;
+        color: #111827;
+        margin-bottom: 18px;
+    }
+
+    .explain-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 18px;
+    }
+
+    .explain-item {
+        border-right: 1px solid #e5edf5;
+        padding-right: 18px;
+    }
+
+    .explain-item:last-child {
+        border-right: none;
+    }
+
+    .message-box {
+        background: #f7fbff;
+        border: 1px solid #e2edf8;
+        border-radius: 14px;
+        padding: 18px;
+        margin-top: 12px;
+    }
+
+    .help-strip {
+        background: linear-gradient(90deg, #eef6ff, #f7fbff);
+        border: 1px solid #d6e8ff;
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-top: 22px;
+        color: #334155;
+        font-weight: 700;
+    }
+
 </style>
 """, unsafe_allow_html=True)
 
@@ -1441,66 +1600,82 @@ with page_col:
         st.markdown('<div class="page-subtitle">Tela indispensável para o aluno acompanhar o retorno da análise.</div>', unsafe_allow_html=True)
         st.markdown('<div class="presentation-note">Entrega essencial: reduz atendimento manual e dá clareza ao aluno sobre inscrição, documentos, análise e resultado.</div>', unsafe_allow_html=True)
 
-        item = SOLICITACOES.iloc[2]
-        status_consulta = "Pendente de ajuste pelo aluno"
-
-        st.markdown(f"""
-<div class="hero-status">
-    <span class="pill">{item['credito']}</span>
-    <h2>{item['aluno']}</h2>
-    <p style="color:#5b677a;">
-        Matrícula: <b>{item['matricula']}</b> &nbsp; | &nbsp;
-        Curso: <b>{item['curso']}</b>
-    </p>
-    <h3>Status atual: {status_consulta}</h3>
-</div>
-""", unsafe_allow_html=True)
-
-        etapas = [
-            {"titulo": "Inscrição", "descricao": "Concluído", "status": "ok"},
-            {"titulo": "Entrega de documentos", "descricao": "Concluído", "status": "ok"},
-            {"titulo": "Análise", "descricao": "Concluído", "status": "ok"},
-            {"titulo": "Resultado da solicitação", "descricao": status_consulta, "status": "atual"},
-        ]
-
-        cols = st.columns(len(etapas))
-        for i, etapa in enumerate(etapas):
-            if etapa["status"] == "ok":
-                icon = "✓"
-                icon_class = "step-icon-status step-icon-ok"
-                card_class = "step-card done"
-            else:
-                icon = "!"
-                icon_class = "step-icon-status step-icon-current"
-                card_class = "step-card current"
-
-            cols[i].markdown(f"""
-<div class="{card_class}">
-    <div class="{icon_class}">{icon}</div>
-    <b>{etapa["titulo"]}</b><br>
-    <span style="color:#5b677a;">{etapa["descricao"]}</span>
-</div>
-""", unsafe_allow_html=True)
-
         st.markdown("""
-<div class="status-warning-box">
-    Ação necessária: reenviar documento solicitado para continuidade da análise.
-</div>
-""", unsafe_allow_html=True)
+<div class="student-consult-shell">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;">
+        <span style="font-size:26px;color:#145fe3;">📄</span>
+        <div style="font-size:24px;font-weight:900;color:#111827;">Acompanhamento da sua solicitação</div>
+    </div>
+    <div style="color:#5b677a;font-weight:600;">
+        Acompanhe o andamento da sua solicitação de crédito educativo.
+    </div>
 
-        st.markdown('<div class="timeline-shell">', unsafe_allow_html=True)
-        st.markdown('<div class="section-title">Linha do tempo</div>', unsafe_allow_html=True)
-        st.markdown('<div class="timeline">', unsafe_allow_html=True)
-        for _, row in HISTORICO_ALUNO.iterrows():
-            st.markdown(f"""
-<div class="timeline-item">
-    <b>{row['status']}</b><br>
-    <span style="color:#5b677a;">{row['data']}</span>
-    <p>{row['descricao']}</p>
+    <div class="student-info-strip">
+        ℹ️ Solicitação recebida em <b>22/05/2026</b> &nbsp;&nbsp;•&nbsp;&nbsp; Programa: <b>PROED</b> &nbsp;&nbsp;•&nbsp;&nbsp; Curso: <b>Direito</b>
+    </div>
+
+    <div class="student-steps">
+        <div class="student-step done">
+            <div class="student-step-circle">📋</div>
+            <div class="student-step-title">1. Inscrição</div>
+            <div class="student-step-desc">Solicitação recebida<br>22/05/2026</div>
+        </div>
+
+        <div class="student-step active">
+            <div class="student-step-circle">📁</div>
+            <div class="student-step-title">2. Documentos</div>
+            <div class="student-step-desc">Documentação completa</div>
+            <div class="student-chip">Em andamento</div>
+        </div>
+
+        <div class="student-step">
+            <div class="student-step-circle">🔎</div>
+            <div class="student-step-title">3. Análise</div>
+            <div class="student-step-desc">Em análise pela equipe</div>
+        </div>
+
+        <div class="student-step">
+            <div class="student-step-circle">✓</div>
+            <div class="student-step-title">4. Resultado</div>
+            <div class="student-step-desc">Aguardando resultado</div>
+        </div>
+    </div>
+
+    <div class="explain-card">
+        <div class="explain-title">ℹ️ O que significa cada etapa?</div>
+        <div class="explain-grid">
+            <div class="explain-item">
+                <b>1. Inscrição</b><br>
+                <span style="color:#5b677a;">Recebemos sua solicitação e estamos conferindo os dados informados.</span>
+            </div>
+            <div class="explain-item">
+                <b>2. Documentos</b><br>
+                <span style="color:#5b677a;">Estamos verificando se os documentos necessários foram enviados corretamente.</span>
+            </div>
+            <div class="explain-item">
+                <b>3. Análise</b><br>
+                <span style="color:#5b677a;">Sua solicitação será analisada pela equipe responsável.</span>
+            </div>
+            <div class="explain-item">
+                <b>4. Resultado</b><br>
+                <span style="color:#5b677a;">Ao final, o resultado da análise ficará disponível nesta tela.</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="explain-card">
+        <div class="explain-title">💬 Mensagens da equipe</div>
+        <div class="message-box">
+            <b>Nenhuma mensagem no momento.</b><br>
+            <span style="color:#5b677a;">Quando houver novidades ou necessidade de ajuste, você será informado aqui.</span>
+        </div>
+    </div>
+
+    <div class="help-strip">
+        ❔ Dúvidas? Entre em contato com a Central de Atendimento pelos canais oficiais da PUCRS.
+    </div>
 </div>
 """, unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
-        st.markdown('</div>', unsafe_allow_html=True)
 
     # ============================================================
     # GESTÃO
