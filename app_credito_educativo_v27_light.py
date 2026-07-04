@@ -1389,12 +1389,9 @@ with page_col:
             st.markdown("""
 <div style="background:#f7fbff;border:1px solid #d8e8fb;border-left:5px solid #145fe3;padding:16px;border-radius:12px;margin-bottom:14px;">
 <b>📄 Documentos que devem ser enviados</b><br><br>
-✅ Documento de identificação (RG ou CNH)<br>
-✅ Comprovante de residência<br>
-✅ Histórico escolar<br>
-✅ Comprovantes de renda (quando houver)<br>
-✅ Declaração de IRPF (quando aplicável)<br>
-✅ Documento do responsável legal (quando aplicável)
+• Documento de identificação (RG ou CNH)<br>
+• Comprovante de residência<br>
+• Histórico escolar
 </div>
 """, unsafe_allow_html=True)
             st.file_uploader(
@@ -1411,12 +1408,12 @@ with page_col:
                 st.markdown("""
 <div style="background:#f7fbff;border:1px solid #d8e8fb;border-left:5px solid #145fe3;padding:16px;border-radius:12px;margin-bottom:14px;">
 <b>📄 Documentos que devem ser enviados</b><br><br>
-✅ Documento de identificação (RG ou CNH)<br>
-✅ Comprovante de residência<br>
-✅ Comprovantes de renda<br>
-✅ Declaração de IRPF (quando aplicável)<br>
-✅ Certidão de casamento ou união estável (quando aplicável)<br>
-✅ Documento do cônjuge (quando aplicável)
+• Documento de identificação (RG ou CNH)<br>
+• Comprovante de residência<br>
+• Comprovantes de renda<br>
+• Declaração de IRPF<br>
+• Certidão de casamento ou união estável (quando aplicável)<br>
+• Documento de identificação do cônjuge (quando aplicável)
 </div>
 """, unsafe_allow_html=True)
                 st.file_uploader(
