@@ -1386,32 +1386,46 @@ with page_col:
             st.info("Envie os documentos em PDF, JPG, JPEG ou PNG. Quando um documento tiver mais de uma página, recomendamos enviar em PDF.")
 
             st.markdown("### 📁 Documentos do aluno")
-            st.caption(
-                "Documentos esperados: documento de identificação (RG ou CNH), comprovante de residência, "
-                "histórico escolar, comprovantes de renda quando houver, IRPF quando aplicável e outros documentos "
-                "solicitados durante a análise."
-            )
+            st.markdown("""
+<div style="background:#f7fbff;border:1px solid #d8e8fb;border-left:5px solid #145fe3;padding:16px;border-radius:12px;margin-bottom:14px;">
+<b>📄 Documentos que devem ser enviados</b><br><br>
+✅ Documento de identificação (RG ou CNH)<br>
+✅ Comprovante de residência<br>
+✅ Histórico escolar<br>
+✅ Comprovantes de renda (quando houver)<br>
+✅ Declaração de IRPF (quando aplicável)<br>
+✅ Documento do responsável legal (quando aplicável)
+</div>
+""", unsafe_allow_html=True)
             st.file_uploader(
                 "Enviar documentos do aluno",
                 type=["pdf", "png", "jpg", "jpeg"],
                 accept_multiple_files=True,
                 key="repositorio_documentos_aluno"
             )
+            st.caption("Formatos aceitos: PDF, JPG, JPEG e PNG. Para documentos com mais de uma página, recomendamos o envio em PDF.")
 
             for n in range(1, qtd_fiadores + 1):
                 titulo = "### 📁 Documentos do fiador" if qtd_fiadores == 1 else f"### 📁 Documentos do fiador {n}"
                 st.markdown(titulo)
-                st.caption(
-                    "Documentos esperados: documento de identificação (RG ou CNH), comprovante de residência, "
-                    "comprovantes de renda, IRPF quando aplicável, certidão de casamento ou união estável quando aplicável, "
-                    "documentação do cônjuge quando aplicável e outros documentos solicitados durante a análise."
-                )
+                st.markdown("""
+<div style="background:#f7fbff;border:1px solid #d8e8fb;border-left:5px solid #145fe3;padding:16px;border-radius:12px;margin-bottom:14px;">
+<b>📄 Documentos que devem ser enviados</b><br><br>
+✅ Documento de identificação (RG ou CNH)<br>
+✅ Comprovante de residência<br>
+✅ Comprovantes de renda<br>
+✅ Declaração de IRPF (quando aplicável)<br>
+✅ Certidão de casamento ou união estável (quando aplicável)<br>
+✅ Documento do cônjuge (quando aplicável)
+</div>
+""", unsafe_allow_html=True)
                 st.file_uploader(
                     "Enviar documentos do fiador" if qtd_fiadores == 1 else f"Enviar documentos do fiador {n}",
                     type=["pdf", "png", "jpg", "jpeg"],
                     accept_multiple_files=True,
                     key=f"repositorio_documentos_fiador_{n}"
                 )
+                st.caption("Formatos aceitos: PDF, JPG, JPEG e PNG. Para documentos com mais de uma página, recomendamos o envio em PDF.")
 
             aceite = st.checkbox("Declaro que as informações prestadas são verdadeiras e que os documentos enviados correspondem à documentação necessária para análise da solicitação.")
             enviar = st.form_submit_button("Solicitar crédito educativo", type="primary", use_container_width=True)
